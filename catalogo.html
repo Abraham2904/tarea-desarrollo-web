@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo</title>
+    <link  rel="stylesheet" href="/css/styles.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .buscador-filtro{
+            margin: 1rem 0 2rem 0;
+            width: 100%;
+            height: 10vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 0.5rem;
+            flex-wrap: wrap;
+            position: relative;
+            gap: 1rem;
+        }
+        .buscador{
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+        min-width: 0;
+        justify-content: center;
+        }
+        .buscador input{
+            flex-grow: 1;
+            max-width: 30rem;
+            padding: 0.75rem 0.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            color: #000;
+            font-family: inherit;
+        }
+        .buscador button{
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background-color: #334155;
+            font-weight: 600;
+        }
+        .buscador button:hover {
+          background-color: #475569; 
+        }
+        
+        .buscador button:active {
+          background-color: #1e293b;
+        }
+        .productos{
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(16rem,1fr));
+            justify-content: center;
+            gap: 1rem;
+        }
+        li label{
+            display: flex;
+            gap: 0.5rem;
+        }
+        label{
+            cursor: pointer;
+        }
+        label h2:hover{
+            color: var(--color-hover);
+        }
+        label h2:active{
+            color: var(--color-active);
+        }
+          #ver-mas-9, .ver-menos{
+           display: none;
+          }
+          #ver-mas-9:checked ~ .descripcion{
+           -webkit-line-clamp: unset;
+          }
+          #ver-mas-9:checked ~ .ver-mas{
+           display: none;
+          }
+          #ver-mas-9:checked ~ .ver-menos{
+           display: block;
+          }  #ver-mas-10, .ver-menos{
+           display: none;
+          }
+          #ver-mas-10:checked ~ .descripcion{
+           -webkit-line-clamp: unset;
+          }
+          #ver-mas-10:checked ~ .ver-mas{
+           display: none;
+          }
+          #ver-mas-10:checked ~ .ver-menos{
+           display: block;
+          }  #ver-mas-11, .ver-menos{
+           display: none;
+          }
+          #ver-mas-11:checked ~ .descripcion{
+           -webkit-line-clamp: unset;
+          }
+          #ver-mas-11:checked ~ .ver-mas{
+           display: none;
+          }
+          #ver-mas-11:checked ~ .ver-menos{
+           display: block;
+          }
+            #ver-mas-12, .ver-menos{
+           display: none;
+          }
+          #ver-mas-12:checked ~ .descripcion{
+           -webkit-line-clamp: unset;
+          }
+          #ver-mas-12:checked ~ .ver-mas{
+           display: none;
+          }
+          #ver-mas-12:checked ~ .ver-menos{
+           display: block;
+          }
+          .filtro{
+            display: none;
+          }
+          #filtro-check:checked ~ .filtro{
+            display: block;
+          }
+          .filtro{
+            position: absolute;
+            margin-top: 1rem;
+            top: 100%;
+             left: 0.5rem;    
+             right: 0.5rem;
+             padding: 1rem; 
+            background-color: #1e293b;
+            z-index: 3;
+            border-radius: 1rem;
+            box-shadow:  0 1px 5px var(--color-border-nav-header);
+          }
+          .filtro h1{
+            margin: 1rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+          }
+          .filtro ul{
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+          .btn-group{
+            margin-top: 1.25rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+          }
+          .btn-group  button{
+            flex-grow:1;
+            max-width: 15rem;
+             border: none;
+            padding: 0.5rem 0.25rem;
+            border-radius: 0.5rem;
+            background-color: #334155;
+            font-weight: 600;
+          }
+          .btn-group button:first-of-type{
+            background-color:  var(--color-button);
+          }
+          .btn-group button:first-of-type:hover{
+            background-color: var(--color-hover);
+          }
+          .btn-group button:first-of-type:active{
+            background-color: var(--color-active);
+          }
+          .btn-group button:last-of-type:hover{
+            background-color:  #475569;
+          }
+          .btn-group button:last-of-type:active{
+            background-color:  #1e293b;
+          }
+          @media(min-width: 768px){
+            .filtro{
+                left: auto;   
+                width: 20rem;
+            }
+          }
+          @media(min-width: 1025px){
+            .buscador-filtro{
+                margin-bottom: 0;
+            }
+            .buscador{
+                flex: 1;
+                justify-content: center;
+            }
+          }
+    </style>
+</head>
+<body>
+    <input type="checkbox" name="check-menu" id="check-menu" style='display: none;'>
+    <header>
+        <div class="parte-superior">
+        <h1 class="text-logo"><a href="index.html">Logo</a></h1>
+          <label for="check-menu" class="menu">
+                Menu 
+           </label>
+           <label for="check-menu" class="cerrar">
+                Cerrar 
+           </label>
+        </div>
+        <nav class="nav_links">
+            <ul>
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="catalogo.html">Catalogo</a></li>
+              <li><a href="#">Servicios</a></li>
+              <li><a href="contacto.html">Contacto</a></li>
+              <li><a href="#">Preguntas Frecuentes</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="buscador-filtro">
+        <div class="buscador">
+            <input type="text" placeholder="Buscar">
+            <button>Buscar</button>
+        </div>
+        <input type="checkbox" name="filtro-check" id="filtro-check" style="display: none;">
+        <label for="filtro-check" style="font-size: 1.5rem; font-weight: 600">Filtros</label>
+        <div class="filtro">
+            <div class="filtros">
+                <h1>Por marca</h1>
+                <ul>
+                    <li><label><input type="checkbox">AMD</label></li>
+                    <li><label><input type="checkbox">Intel</label></li>
+                    <li><label><input type="checkbox">Corsair</label></li>
+                    <li><label><input type="checkbox">ASUS</label></li>
+                    <li><label><input type="checkbox">SanDisk</label></li>
+                </ul>
+                <h1>Rango de precios</h1>
+                <ul>
+                    <li><label><input type="checkbox">Menos de $50</label></li>
+                    <li><label><input type="checkbox">$50 a $200</label></li>
+                    <li><label><input type="checkbox">$200 a $500</label></li>
+                    <li><label><input type="checkbox">Mas de $500</label></li>
+                </ul>
+                <div class="btn-group">
+                <button>Aplicar</button>
+                <button>Limpiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <aside>
+        <div>
+            <h2>Categorias</h2>
+            <ul>
+                <li>Laptops</li>
+                <li>Computadoras</li>
+                <li>Tarjetas Graficas</li>
+                <li>Procesadores</li>
+                <li>Placas Base</li>
+                <li>Fuentes de Poder</li>
+                <li>Memorias RAM</li>
+                <li>Almacenamiento</li>
+                <li>Consolas de videojuegos</li>
+                <li>Accesorios</li>
+            </ul>
+            <h2>
+                Garantia y envios
+            </h2>
+            <ul>
+                <li>Garantia incluida</li>
+                <li>Envio a todo el Ecuador</li>
+            </ul>
+        </div>
+    </aside>    
+    <main>
+        <div class="productos">
+                <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/Fuente-poder.png" style="width: 90%" alt="Fuente de Poder Corsair AX1200i 1200W"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>Corsair AX1200i 1200W</h3>
+                            <div class="precio">
+                                <p>$100 + IVA </p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-1">
+                            <p class="descripcion">Fuente de poder de 1200 W con certificación 80 PLUS Platinum y diseño totalmente modular. Ofrece energía estable y eficiente para equipos de alto rendimiento, con monitoreo digital y ventilador silencioso.</p>
+                            <label for="ver-mas-1" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-1" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/RAM.png" style="width: 90%" alt="Memoria RAM HyperX Fury DDR4 Kit Dual Channel"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>Memoria RAM HyperX Fury DDR4 Kit Dual Channel</h3>
+                            <div class="precio">
+                                <p>$150.00 + IVA</p>
+                                <p>Antes: 155.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-2">
+                            <p class="descripcion">Kit de dos módulos HyperX Fury DDR4 con disipador negro de perfil bajo, listo para dar un salto de rendimiento a tu PC de escritorio. Al trabajar en doble canal, los dos módulos se complementan y mejoran la velocidad con la que el procesador accede a los datos, algo que se nota al abrir muchos programas, jugar o renderizar video.</p>
+                            <label for="ver-mas-2" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-2" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/Procesador.png" style="width: 90%" alt="Procesador AMD Ryzen 5 9600X"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>AMD Ryzen 5 9600X</h3>
+                            <div class="precio">
+                                <p>$280.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-3">
+                            <p class="descripcion">Procesador de 6 núcleos y 12 hilos, ideal para gaming, estudio y trabajo diario. Ofrece un gran rendimiento multitarea con excelente eficiencia energética.</p>
+                            <label for="ver-mas-3" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-3" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/Laptop.png" alt="Laptop Lenovo Yoga 2 en 1 con Pantalla Táctil"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>Laptop Lenovo Yoga 2 en 1 con Pantalla Táctil</h3>
+                            <div class="precio">
+                                <p>$550.00 + IVA</p>
+                                <p>Antes: 600.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-4">
+                            <p class="descripcion">Laptop convertible con pantalla táctil y bisagra de 360° para usarla como laptop o tablet. Diseño delgado en negro con detalles en rojo, ideal para estudiar, trabajar y navegar con comodidad.</p>
+                            <label for="ver-mas-4" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-4" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" >
+                        <img src="./images/Laptop-gamer.png" style="width: 70%" alt="Laptop Gamer ASUS ROG"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>ASUS ROG Gaming Laptop</h3>
+                            <div class="precio">
+                                <p>$1430.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-5">
+                            <p class="descripcion">Laptop gamer con teclado retroiluminado RGB y pantalla de alta fluidez. Pensada para juegos exigentes, streaming y multitarea, con un diseño agresivo que no pasa desapercibido.</p>
+                            <label for="ver-mas-5" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-5" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/monitor.png" alt="Monitor Gamer ASUS ROG Swift"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>Monitor Gamer ASUS ROG Swift</h3>
+                            <div class="precio">
+                                <p>$160.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-6">
+                            <p class="descripcion">Monitor gamer con pantalla de bordes delgados y una imagen vibrante que se aprecia desde el primer encendido. Su base de patas angulares, con detalles en rojo y acabado metálico, le da una presencia agresiva que encaja en cualquier escritorio gamer.</p>
+                            <label for="ver-mas-6" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-6" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/PC.png" style="width: 70%" alt="PC Gamer AZZA"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>PC Gamer AZZA</h3>
+                            <div class="precio">
+                                <p>$1600.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-7">
+                            <p class="descripcion">Computadora gamer lista para usar, con panel lateral de vidrio, refrigeración líquida e iluminación en los ventiladores. Pensada para juegos exigentes, streaming y multitarea, con un diseño que luce tanto como rinde.</p>
+                            <label for="ver-mas-7" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-7" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/procesador-intel.png" style="width: 70%" alt="Procesador Intel Core i9 X-Series"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>Intel Core i9 X-Series</h3>
+                            <div class="precio">
+                                <p>$745.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-8">
+                            <p class="descripcion">Procesador de alto rendimiento pensado para creación de contenido, edición de video, streaming y gaming extremo. Ofrece una enorme capacidad multitarea para quienes no quieren límites.</p>
+                            <label for="ver-mas-8" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-8" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/USB.png" style="width: 80%" alt="SanDisk Cruzer Blade USB 16GB"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>SanDisk Cruzer Blade USB 16GB</h3>
+                            <div class="precio">
+                                <p>$8.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-9">
+                            <p class="descripcion">Memoria USB compacta y portátil para guardar y transportar documentos, fotos y videos. Su diseño con conector retráctil protege el puerto y se lleva fácil en el bolsillo o en las llaves.</p>
+                            <label for="ver-mas-9" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-9" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/placa-base1.png" alt="Placa Base ASUS ROG Strix X99 Gaming"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>ASUS ROG Strix X99 Gaming</h3>
+                            <div class="precio">
+                                <p>$320.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-10">
+                            <p class="descripcion">Placa base para gaming y estaciones de trabajo, con socket LGA 2011-v3 y memoria DDR4. Incluye iluminación Aura Sync, múltiples ranuras PCIe y diseño reforzado para equipos de alto rendimiento.</p>
+                            <label for="ver-mas-10" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-10" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/Men-RAM.png" style="width: 80%" alt="Memoria RAM Corsair Vengeance Pro Series (Kit 2 módulos)"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>Corsair Vengeance Pro Series (Kit 2 módulos)</h3>
+                            <div class="precio">
+                                <p>$100.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-11">
+                            <p class="descripcion">Kit de memoria RAM DDR3 de alto rendimiento con disipadores de aluminio para mantener temperaturas bajas. Ideal para gaming, edición y multitarea exigente, con instalación sencilla y gran estabilidad.</p>
+                            <label for="ver-mas-11" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-11" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                        <img src="./images/Disipador.png" style="width: 56%" alt="Disipador de Aire Cooler Master Hyper 212 LED Turbo"/>
+                        </div>
+                        <article class="detalles card">
+                            <h3>Cooler Master Hyper 212 LED Turbo</h3>
+                            <div class="precio">
+                                <p>$25.00 + IVA</p>
+                            </div>
+                            <input type="checkbox" id="ver-mas-12">
+                            <p class="descripcion">Disipador de aire para procesador con heatpipes de contacto directo y doble ventilador con iluminación LED roja. Mantiene temperaturas bajas en gaming y cargas exigentes, con un diseño que se luce a través del panel de vidrio.</p>
+                            <label for="ver-mas-12" class="ver-mas">Ver más</label>
+                            <label for="ver-mas-12" class="ver-menos">Ver menos</label>
+                        </article>
+                        <button>Comprar</button>
+                    </div>
+            </div>
+    </main>
+    <footer>
+         <ul>
+            <li>Terminos y condiciones</li>
+            <li>Politicas de privacidad</li>
+        </ul>
+        <ul>
+            <li>Servicios</li>
+            <li>Mantenimiento</li>
+            <li>Reparacion</li>
+            <li>Ensamblaje</li>
+        </ul>
+    </footer>
+</body>
+</html>
